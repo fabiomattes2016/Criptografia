@@ -4,9 +4,14 @@ const crypto = require('crypto')
 const algo = 'aes-256-ctr'
 const secret = '23f2e5915c973e4717ca205a40d33bba'
 
-const read = fs.createReadStream('output.pdf')
+const read = fs.createReadStream('encriptado.pdf')
 const write = fs.createWriteStream('decriptado.pdf')
 
-const cipher = crypto.createDecipher(algo, secret)
+const encrypt = (input, output) => {
+    const cipher = crypto.createDecipher(algo, secret)
+    input.pipe(cipher).pipe(output)
 
-read.pipe(cipher).pipe(write)
+    console.log("Arquivo decriptado com sucesso")
+}
+
+encrypt(read, write)

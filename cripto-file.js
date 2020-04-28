@@ -7,6 +7,11 @@ const secret = '23f2e5915c973e4717ca205a40d33bba'
 const read = fs.createReadStream('arquivo.pdf')
 const write = fs.createWriteStream('encriptado.pdf')
 
-const cipher = crypto.createCipher(algo, secret)
+const encrypt = (input, output) => {
+    const cipher = crypto.createCipher(algo, secret)
+    input.pipe(cipher).pipe(output)
 
-read.pipe(cipher).pipe(write)
+    console.log("Arquivo encriptado com sucesso")
+}
+
+encrypt(read, write)
